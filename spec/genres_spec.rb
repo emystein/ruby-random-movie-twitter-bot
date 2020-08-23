@@ -1,19 +1,22 @@
+require_relative '../lib/remote_movie_repository.rb'
 require_relative '../lib/genres.rb'
 
-describe Genres do
-  let(:genres) { Genres.new(%w[I Want To Watch A Comedy]) }
-  let(:words_array_test) { %w[Comedy] }
-  let(:movies_genre_selected) { Tmdb::Genre.find('Comedy') }
+describe Genre do
+  before(:each) do
+    @comedy = Genre.new(name: 'Comedy', movie_repository: TheMovieDb.new)
+  end
 
-  describe '#genre' do
-    it 'Returns an array with the elements that are included in words_array and genres_array' do
-      expect(genres.genre).to eql(words_array_test)
+  describe 'parse words with valid genre' do
+    it 'returns a Genre' do
+      genre = Genre.parse(%w[I Want To Watch A Comedy], TheMovieDb.new)
+
+      expect(genre).to eq(@comedy)
     end
   end
-  describe '#genre_selected?' do
-    it 'Returns true if the genre list contains the genre in the tweet' do
-      genres.genre
-      expect(genres.genre_selected?).to eql(true)
+
+  describe 'movies' do
+    it 'belongs to Comedy' do
+      expect(@comedy.movies).not_to be_empty
     end
   end
 end

@@ -1,26 +1,14 @@
+Movie = Struct.new(:id, :title)
+
 class Movies
-  require 'themoviedb'
-  require 'dotenv/load'
-
-  Tmdb::Api.key(ENV['TMBD_KEY'])
-
-  attr_reader :movie_info
-
-  def initialize(movie_list)
-    @movie_list = movie_list
-    @movie_info = []
-    selected_movie_info = @movie_list.sample
-    @movie_info << selected_movie_info['id']
-    @movie_info << selected_movie_info['title']
+  def initialize(genre:)
+    @genre = genre
+    @movies = genre.movies
   end
 
-  def title
-    title = @movie_info[1]
-    title
-  end
+  def sample
+    info = @movies.sample
 
-  def id
-    id = @movie_info[0]
-    id
+    Movie.new(info['id'], info['title'])
   end
 end

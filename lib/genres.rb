@@ -1,38 +1,32 @@
-class Genres
-  require 'themoviedb'
-  require 'dotenv/load'
+class Genre
+  def self.parse(words, movie_repository)
+    genre_names = movie_repository.genres.map { |item| item['name'] }
 
-  Tmdb::Api.key(ENV['TMBD_KEY'])
+    genre_selected = words & genre_names
 
-  def initialize(words_array)
-    @words_array = words_array
-    @genre_list = Tmdb::Genre.list['genres']
-    @genres_arr = []
-    @genre_selected = []
+    Genre.new(name: genre_selected[0], movie_repository: movie_repository)
   end
 
-  def genre
-    @genre_list.each { |item| @genres_arr << item['name'] }
-    @genre_selected = @words_array & @genres_arr
-    @genre_selected
+  attr_reader :name
+
+  def initialize(name:, movie_repository:)
+    @name = name
+    @genre_selection = movie_repository.movies_by_genre(name)
   end
 
-  def movie_list
-    genre_selection = Tmdb::Genre.find(@genre_selected[0])
-    page_number = rand(1..genre_selection.total_pages)
-    movie_list_arr = if page_number == 1
-                       genre_selection
-                     else
-                       genre_selection.get_page(page_number)
-                     end
-    movie_list_arr.results
+  def movies
+    page_number = rand(1..@genre_selection.total_pages)
+
+    movies = if page_number == 1
+               @genre_selection
+             else
+               @genre_selection.get_page(page_number)
+             end
+
+    movies.results
   end
 
-  def genre_selected?
-    if @genres_arr.include?(@genre_selected[0])
-      true
-    else
-      false
-    end
+  def ==(other)
+    @name == other.name
   end
 end

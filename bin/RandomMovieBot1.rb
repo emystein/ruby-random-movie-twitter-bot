@@ -6,19 +6,21 @@ require 'rubygems'
 require 'chatterbot/dsl'
 
 verbose
+
 exclude bad_words
 
 replies do |tweet|
   include HelperMethods
+
   user = '#USER#'
+
   tweet_split = split_tweet(tweet.text)
-  genres = Genres.new(tweet_split)
-  genres.genre
-  if genres.genre_selected?
-    movies = Movies.new(genres.movie_list)
-    movie_title = movies.title
-    movie_id = movies.id
-    reply "#{user} #{movie_title} https://www.themoviedb.org/movie/#{movie_id}", tweet
+
+  genre = Genre.parse(tweet_split, TheMovieDb.new)
+
+  if !genre.nil?
+    movie = Movies.new(genre.movies).sample
+    reply "#{user} #{movie.title} https://www.themoviedb.org/movie/#{movie.id}", tweet
   else
     reply "#{user} Sorry, but that is not a valid genre", tweet
   end
