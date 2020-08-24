@@ -7,9 +7,7 @@ describe Movies do
     it 'Returns a movie' do
       genre = Genre.new(name: 'Comedy', movie_repository: TheMovieDb.new)
 
-      movies = Movies.new(genre: genre)
-
-      movie = movies.sample
+      movie = genre.movies.sample
 
       expect(movie.id).to be
       expect(movie.title).to be

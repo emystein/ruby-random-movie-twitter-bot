@@ -8,22 +8,11 @@ class Genre
   end
 
   attr_reader :name
+  attr_reader :movies
 
   def initialize(name:, movie_repository:)
     @name = name
-    @genre_selection = movie_repository.movies_by_genre(name)
-  end
-
-  def movies
-    page_number = rand(1..@genre_selection.total_pages)
-
-    movies = if page_number == 1
-               @genre_selection
-             else
-               @genre_selection.get_page(page_number)
-             end
-
-    movies.results
+    @movies = Movies.new(genre: self, movie_repository: movie_repository)
   end
 
   def ==(other)

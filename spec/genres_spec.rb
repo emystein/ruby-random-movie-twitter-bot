@@ -16,7 +16,7 @@ describe Genre do
 
   describe 'movies' do
     it 'belongs to Comedy' do
-      expect(@comedy.movies).not_to be_empty
+      expect(@comedy.movies.sample).to be
     end
   end
 end
