@@ -1,4 +1,4 @@
-require_relative '../lib/remote_movie_repository.rb'
+require_relative '../lib/ahmetabdi_remote_movie_repository.rb'
 require_relative '../lib/genres.rb'
 require_relative '../lib/movies.rb'
 

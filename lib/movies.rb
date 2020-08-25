@@ -3,15 +3,11 @@ Movie = Struct.new(:id, :title)
 class Movies
   def initialize(genre:, movie_repository:)
     @genre = genre
-    @movies = movie_repository.movies_by_genre(@genre.name)
+    @movie_repository = movie_repository
   end
 
   def random_page
-    page_number = rand(1..@movies.total_pages)
-
-    movies = page_number == 1 ? @movies : @movies.get_page(page_number)
-
-    movies.results.map { |info| Movie.new(info['id'], info['title']) }
+    @movie_repository.movies_by_genre_random_page(@genre.name)
   end
 
   def sample
