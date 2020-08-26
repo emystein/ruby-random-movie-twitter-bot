@@ -17,7 +17,9 @@ replies do |tweet|
 
   tweet_split = split_tweet(tweet.text)
 
-  genre = Genre.parse(tweet_split, RemoteMovieRepository.new)
+  movie_repository = RemoteMovieRepository.new
+  genre_name = GenreNameParser.parse(tweet_split, movie_repository)
+  genre = Genre.new(name: genre_name, movie_repository: movie_repository)
 
   if !genre.nil?
     movie = Movies.new(genre.movies).sample
