@@ -1,6 +1,6 @@
 class Genre
   def self.parse(words, movie_repository)
-    genre_names = movie_repository.genres.map { |item| item['name'] }
+    genre_names = movie_repository.genres.map(&:name)
 
     genre_selected = words & genre_names
 

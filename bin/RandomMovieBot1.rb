@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require_relative '../lib/helper_methods'
+require_relative '../lib/remote_movie_repository.rb'
 require_relative '../lib/genres'
 require_relative '../lib/movies'
 require 'rubygems'
@@ -16,7 +17,7 @@ replies do |tweet|
 
   tweet_split = split_tweet(tweet.text)
 
-  genre = Genre.parse(tweet_split, TheMovieDb.new)
+  genre = Genre.parse(tweet_split, RemoteMovieRepository.new)
 
   if !genre.nil?
     movie = Movies.new(genre.movies).sample

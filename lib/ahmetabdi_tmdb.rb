@@ -7,7 +7,7 @@ class TheMovieDb
   end
 
   def genres
-    Tmdb::Genre.list['genres']
+    Tmdb::Genre.list['genres'].map { |info| Genre.new(info['name'], self) }
   end
 
   def movies_by_genre(name)

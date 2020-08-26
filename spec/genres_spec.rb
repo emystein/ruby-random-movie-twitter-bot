@@ -1,9 +1,9 @@
-require_relative '../lib/ahmetabdi_remote_movie_repository.rb'
+require_relative '../lib/remote_movie_repository.rb'
 require_relative '../lib/genres.rb'
 
 describe Genre do
   before(:each) do
-    @comedy = Genre.new(name: 'Comedy', movie_repository: TheMovieDb.new)
+    @comedy = Genre.new(name: 'Comedy', movie_repository: RemoteMovieRepository.new)
   end
 
   describe 'parse words with valid genre' do
