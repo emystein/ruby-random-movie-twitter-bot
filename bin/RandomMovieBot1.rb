@@ -2,7 +2,6 @@
 require_relative '../lib/helper_methods'
 require_relative '../lib/remote_movie_repository.rb'
 require_relative '../lib/genres'
-require_relative '../lib/movies'
 require 'rubygems'
 require 'chatterbot/dsl'
 
@@ -22,7 +21,7 @@ replies do |tweet|
   genre = Genre.new(name: genre_name, movie_repository: movie_repository)
 
   if !genre.nil?
-    movie = Movies.new(genre).sample
+    movie = genre.random_movies_page.sample
     reply "#{user} #{movie.title} https://www.themoviedb.org/movie/#{movie.id}", tweet
   else
     reply "#{user} Sorry, but that is not a valid genre", tweet
