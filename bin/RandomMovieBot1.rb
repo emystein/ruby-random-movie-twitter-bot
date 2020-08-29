@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require_relative '../lib/helper_methods'
+require_relative '../lib/tweet_parser.rb'
 require_relative '../lib/remote_movie_repository.rb'
 require_relative '../lib/genres'
 require 'rubygems'
@@ -9,15 +9,12 @@ verbose
 
 exclude bad_words
 
-replies do |tweet|
-  include HelperMethods
+movie_repository = RemoteMovieRepository.new
 
+replies do |tweet|
   user = '#USER#'
 
-  tweet_split = split_tweet(tweet.text)
-
-  movie_repository = RemoteMovieRepository.new
-  genre_name = GenreNameParser.parse(tweet_split, movie_repository)
+  genre_name = TweetParser.parse_genre(tweet, movie_repository)
   genre = Genre.new(name: genre_name, movie_repository: movie_repository)
 
   if !genre.nil?
