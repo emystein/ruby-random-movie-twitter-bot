@@ -40,12 +40,12 @@ class TheMovieDb
     Tmdb::Genre.movie_list
   end
 
-  def movies_by_genre(name)
+  def paginated_movies_by_genre(name)
     genre = genres.detect { |g| g.name == name }
     Tmdb::Genre.movies(genre.id).results
   end
 
-  def movies_by_genre_random_page(name)
-    movies_by_genre(name).sample(20)
+  def random_movies_page_by_genre(name)
+    paginated_movies_by_genre(name).sample(20)
   end
 end

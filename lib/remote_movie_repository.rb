@@ -10,11 +10,11 @@ class RemoteMovieRepository
     @remote.genres
   end
 
-  def movies_by_genre(name)
-    @remote.movies_by_genre(name)
+  def paginated_movies_by_genre(name)
+    @remote.paginated_movies_by_genre(name)
   end
 
-  def movies_by_genre_random_page(name)
-    @remote.movies_by_genre_random_page(name)
+  def random_movies_page_by_genre(name)
+    @remote.random_movies_page_by_genre(name)
   end
 end

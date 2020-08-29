@@ -7,7 +7,7 @@ class Movies
   end
 
   def random_page
-    @movie_repository.movies_by_genre_random_page(@genre.name)
+    @movie_repository.random_movies_page_by_genre(@genre.name)
   end
 
   def sample

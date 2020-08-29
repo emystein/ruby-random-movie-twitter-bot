@@ -10,12 +10,12 @@ class TheMovieDb
     Tmdb::Genre.list['genres'].map { |info| Genre.new(info['name'], self) }
   end
 
-  def movies_by_genre(name)
+  def paginated_movies_by_genre(name)
     Tmdb::Genre.find(name)
   end
 
-  def movies_by_genre_random_page(name)
-    movies = movies_by_genre(name)
+  def random_movies_page_by_genre(name)
+    movies = paginated_movies_by_genre(name)
 
     page_number = rand(1..movies.total_pages)
 
