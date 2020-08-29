@@ -1,3 +1,5 @@
+require 'movies'
+
 class GenreNameParser
   def self.parse(words, movie_repository)
     genre_names = movie_repository.genres.map(&:name)
@@ -14,7 +16,12 @@ class Genre
 
   def initialize(name:, movie_repository:)
     @name = name
-    @movies = Movies.new(genre: self, movie_repository: movie_repository)
+    @movies = Movies.new(genre: self)
+    @movie_repository = movie_repository
+  end
+
+  def random_movies_page
+    @movie_repository.random_movies_page_by_genre(@name)
   end
 
   def ==(other)

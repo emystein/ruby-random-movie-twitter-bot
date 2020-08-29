@@ -22,7 +22,7 @@ replies do |tweet|
   genre = Genre.new(name: genre_name, movie_repository: movie_repository)
 
   if !genre.nil?
-    movie = Movies.new(genre.movies).sample
+    movie = Movies.new(genre).sample
     reply "#{user} #{movie.title} https://www.themoviedb.org/movie/#{movie.id}", tweet
   else
     reply "#{user} Sorry, but that is not a valid genre", tweet

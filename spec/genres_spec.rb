@@ -21,4 +21,10 @@ describe Genre do
       expect(@comedy.movies.sample).to be
     end
   end
+
+  describe 'random movies page' do
+    it 'returns a page of movies' do
+      expect(@comedy.random_movies_page).to be
+    end
+  end
 end
